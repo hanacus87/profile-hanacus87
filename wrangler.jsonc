@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "profile-hanacus87",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-20",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+  },
+  "routes": [{ "pattern": "hanacus87.net", "custom_domain": true }],
+  "observability": { "enabled": true },
+}

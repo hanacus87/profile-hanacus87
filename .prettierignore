@@ -1,0 +1,4 @@
+bun.lock
+public/fonts/
+.wrangler/
+dist/
