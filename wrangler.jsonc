@@ -8,5 +8,7 @@
     "binding": "ASSETS",
   },
   "routes": [{ "pattern": "hanacus87.net", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false,
   "observability": { "enabled": true },
 }
