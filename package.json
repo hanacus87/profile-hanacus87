@@ -3,18 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "typecheck": "tsc --noEmit",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "build:client": "bun build ./client/whoami.ts --outfile ./public/whoami.js --target browser",
+    "build:headers": "bun run scripts/gen-headers.ts",
+    "build": "bun run build:headers && bun run build:client",
+    "dev": "bun run build && wrangler dev",
+    "deploy": "bun run build && wrangler deploy",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit && tsc -p test/tsconfig.json",
+    "lint": "biome lint",
+    "format": "biome format --write",
+    "format:check": "biome format"
   },
   "dependencies": {
     "hono": "^4.12.26"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.0",
     "@cloudflare/workers-types": "^4.20260620.1",
-    "prettier": "^3.8.4",
+    "@happy-dom/global-registrator": "^20.10.2",
+    "@types/bun": "^1.3.14",
     "typescript": "^6.0.3",
     "wrangler": "^4.103.0"
   }

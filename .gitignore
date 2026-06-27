@@ -1,6 +1,7 @@
 node_modules/
 .wrangler/
 dist/
+/public/whoami.js
 *.log
 .dev.vars
 .DS_Store

@@ -16,39 +16,36 @@
   </head>
   <body>
     <main>
-      <div class="hana-disc" aria-hidden="true">
+      <button
+        type="button"
+        class="hana-disc"
+        id="hana-disc"
+        aria-haspopup="dialog"
+        aria-controls="whoami-modal"
+        aria-label="Open the &quot;Who was I?&quot; puzzle"
+      >
         <img src="/hana.svg" alt="" />
-      </div>
+      </button>
 
       <pre
         class="diff"
-      ><code><span class="line del">- &lt;whoami&gt;Im hanacus87:)&lt;/whoami&gt;</span><span class="line add">+ ec07d733adeecee47a5573f257db6005</span></code></pre>
+      ><code><span class="line del">- &lt;whoami&gt;ec07d733adeecee47a5573f257db6005&lt;/whoami&gt;</span><span class="line add" id="whoami-reveal">+ &lt;whoami&gt;?&lt;/whoami&gt;</span></code></pre>
 
       <ul class="links">
-        <li>🌺 <strong>Interested in</strong>: Web / Security</li>
         <li>
-          <img
-            src="https://www.google.com/s2/favicons?domain=github.com&amp;sz=64"
-            alt=""
-          />
+          <span class="icon icon-github" aria-hidden="true"></span>
           <strong>GitHub</strong>:
           <a href="https://github.com/hanacus87">@hanacus87</a>
         </li>
         <li>
-          <img
-            src="https://www.google.com/s2/favicons?domain=hackthebox.com&amp;sz=64"
-            alt=""
-          />
+          <span class="icon icon-hackthebox" aria-hidden="true"></span>
           <strong>HackTheBox</strong>:
           <a href="https://app.hackthebox.com/public/users/2983141"
             >@hanacus87</a
           >
         </li>
         <li>
-          <img
-            src="https://www.google.com/s2/favicons?domain=zenn.dev&amp;sz=64"
-            alt=""
-          />
+          <span class="icon icon-zenn" aria-hidden="true"></span>
           <strong>Zenn</strong>:
           <a href="https://zenn.dev/hanacus87">@hanacus87</a>
         </li>
@@ -80,6 +77,31 @@
           </tr>
         </tbody>
       </table>
+
+      <dialog
+        id="whoami-modal"
+        class="whoami-modal"
+        aria-labelledby="whoami-title"
+      >
+        <form class="whoami-form">
+          <h2 id="whoami-title" class="whoami-title">Who was I?</h2>
+          <input
+            id="whoami-input"
+            name="answer"
+            type="text"
+            aria-label="answer"
+            class="whoami-input"
+            autocomplete="off"
+            autocapitalize="off"
+            autocorrect="off"
+            spellcheck="false"
+          />
+          <div class="whoami-actions">
+            <button type="submit" class="whoami-button">submit</button>
+          </div>
+        </form>
+      </dialog>
     </main>
+    <script type="module" src="/whoami.js"></script>
   </body>
 </html>

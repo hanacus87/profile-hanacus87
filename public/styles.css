@@ -16,6 +16,7 @@
 :root {
   color-scheme: dark;
   --disc: 71px;
+  --bloom: 180ms;
   --crust: #232634;
   --mantle: #292c3c;
   --base: #303446;
@@ -61,15 +62,37 @@ main {
   width: var(--disc);
   height: var(--disc);
   margin: 0 0 16px 16px;
+  padding: 0;
   background: var(--base);
+  border: 0;
   border-radius: 50%;
   display: grid;
   place-items: center;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  appearance: none;
+}
+.hana-disc:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
 }
 .hana-disc img {
   width: 57%;
   height: 57%;
   display: block;
+  filter: grayscale(1);
+  opacity: 0.5;
+  transition:
+    filter var(--bloom) ease,
+    opacity var(--bloom) ease;
+}
+.hana-disc:hover img {
+  opacity: 0.75;
+}
+body.solved .hana-disc img {
+  filter: grayscale(0);
+  opacity: 1;
 }
 
 .diff {
@@ -98,11 +121,11 @@ main {
 }
 .diff .del {
   color: var(--red);
-  background: rgba(231, 130, 132, 0.12);
+  background: color-mix(in srgb, var(--red) 12%, transparent);
 }
 .diff .add {
   color: var(--green);
-  background: rgba(166, 209, 137, 0.12);
+  background: color-mix(in srgb, var(--green) 12%, transparent);
 }
 
 .links {
@@ -116,9 +139,22 @@ main {
   align-items: center;
   gap: 8px;
 }
-.links img {
+.links .icon {
   width: 16px;
   height: 16px;
+  flex: none;
+  background-color: var(--blue);
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+.icon-github {
+  --icon: url("/icons/github.svg");
+}
+.icon-hackthebox {
+  --icon: url("/icons/hackthebox.svg");
+}
+.icon-zenn {
+  --icon: url("/icons/zenn.svg");
 }
 
 table {
@@ -156,4 +192,68 @@ td code {
   padding: 1px 5px;
   border-radius: 4px;
   font-size: 12.5px;
+}
+
+.whoami-modal {
+  margin: auto;
+  width: min(92vw, 380px);
+  padding: 0;
+  background: var(--mantle);
+  color: var(--text);
+  border: 1px solid var(--surface0);
+  border-radius: 12px;
+}
+.whoami-modal::backdrop {
+  background: color-mix(in srgb, var(--crust) 60%, transparent);
+}
+.whoami-form {
+  margin: 0;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.whoami-title {
+  margin: 0;
+  font-size: 16px;
+}
+.whoami-input {
+  width: 100%;
+  padding: 9px 11px;
+  background: var(--base);
+  color: var(--text);
+  border: 1px solid var(--surface0);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+}
+.whoami-input:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
+.whoami-actions {
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.whoami-button {
+  padding: 8px 14px;
+  background: var(--blue);
+  color: var(--crust);
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.whoami-button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hana-disc img {
+    transition: none;
+  }
 }
