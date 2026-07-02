@@ -28,7 +28,7 @@ function fakeFetch(data: unknown, status: number) {
   );
 }
 
-const SOLVED = { ok: true, reveal: "<whoami>Im hanacus87 :)</whoami>" };
+const SOLVED = { ok: true, reveal: "<whoami>hibiscus</whoami>" };
 
 function flush(): Promise<void> {
   return new Promise((resolve) => {
@@ -98,25 +98,35 @@ describe("回答の送信", () => {
     expect(String(init?.body)).toContain("guess");
   });
 
-  test("正解の応答後 モーダルが閉じ + 行に hanacus87 が現れ body.solved になる", async () => {
-    expect(el("whoami-reveal").textContent).not.toContain("hanacus87");
+  test("正解の応答後 モーダルが閉じ - 行のハッシュが平文 hibiscus に変わり body.solved になる", async () => {
+    expect(el("whoami-reveal").textContent).toContain("hanacus87");
+    expect(el("whoami-hash").textContent).toContain(
+      "ec07d733adeecee47a5573f257db6005",
+    );
+    expect(el("whoami-hash").textContent).not.toContain("hibiscus");
     initWhoamiModal(document, fakeFetch(SOLVED, 200));
     el("hana-disc").click();
     el<HTMLInputElement>("whoami-input").value = "hibiscus";
     submitForm();
     await flush();
     expect(isOpen()).toBe(false);
-    expect(el("whoami-reveal").textContent).toContain("hanacus87");
+    expect(el("whoami-hash").textContent).toBe("- <whoami>hibiscus</whoami>");
+    expect(el("whoami-reveal").textContent).toBe(
+      "+ <whoami>Im hanacus87 :)</whoami>",
+    );
     expect(document.body.classList.contains("solved")).toBe(true);
   });
 
-  test("不正解の応答後 + 行は変化せず solved にもならず そのまま閉じる", async () => {
+  test("不正解の応答後 - 行はハッシュのまま solved にもならず そのまま閉じる", async () => {
     initWhoamiModal(document, fakeFetch({ ok: false }, 401));
     el("hana-disc").click();
     el<HTMLInputElement>("whoami-input").value = "hana";
     submitForm();
     await flush();
-    expect(el("whoami-reveal").textContent).not.toContain("hanacus87");
+    expect(el("whoami-hash").textContent).toContain(
+      "ec07d733adeecee47a5573f257db6005",
+    );
+    expect(el("whoami-hash").textContent).not.toContain("hibiscus");
     expect(document.body.classList.contains("solved")).toBe(false);
     expect(isOpen()).toBe(false);
   });

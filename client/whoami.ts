@@ -12,7 +12,7 @@ export function initWhoamiModal(
   }
   const form = modal.querySelector("form");
   const input = doc.getElementById("whoami-input") as HTMLInputElement | null;
-  const reveal = doc.getElementById("whoami-reveal");
+  const hashLine = doc.getElementById("whoami-hash");
 
   const openModal = (): void => {
     if (input) {
@@ -79,8 +79,8 @@ export function initWhoamiModal(
     }
     closeModal();
     if (ok && typeof payload.reveal === "string") {
-      if (reveal) {
-        reveal.textContent = `+ ${payload.reveal}`;
+      if (hashLine) {
+        hashLine.textContent = `- ${payload.reveal}`;
       }
       doc.body.classList.add("solved");
     }

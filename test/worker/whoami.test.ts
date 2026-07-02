@@ -15,11 +15,11 @@ describe("POST /api/whoami", () => {
     expect(res.status).toBe(200);
   });
 
-  test("正解時の応答に現在の自分を示す hanacus87 を含む reveal を返す", async () => {
+  test("正解時の応答にハッシュの平文 hibiscus を示す reveal を返す", async () => {
     const res = await postAnswer("hibiscus");
     const body = (await res.json()) as { ok: boolean; reveal?: string };
     expect(body.ok).toBe(true);
-    expect(body.reveal).toContain("hanacus87");
+    expect(body.reveal).toBe("<whoami>hibiscus</whoami>");
   });
 
   test("不正解 hana は 401 を返し ok を false にする", async () => {
@@ -70,5 +70,15 @@ describe("配信される初期 HTML", () => {
   test("謎として MD5 ハッシュ ec07d733… を含む", async () => {
     const html = await Bun.file("public/index.html").text();
     expect(html).toContain("ec07d733adeecee47a5573f257db6005");
+  });
+
+  test("自己紹介 Im hanacus87 :) を + 行に最初から含む", async () => {
+    const html = await Bun.file("public/index.html").text();
+    expect(html).toContain("+ &lt;whoami&gt;Im hanacus87 :)&lt;/whoami&gt;");
+  });
+
+  test("ハッシュの - 行に書き換え先となる id whoami-hash を持つ", async () => {
+    const html = await Bun.file("public/index.html").text();
+    expect(html).toContain('id="whoami-hash"');
   });
 });

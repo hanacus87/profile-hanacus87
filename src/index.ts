@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { applySecurityHeaders } from "./lib/security";
-import { REVEAL_WHOAMI, isCorrectAnswer } from "./lib/whoami";
+import { REVEAL_ANSWER, isCorrectAnswer } from "./lib/whoami";
 
 const app = new Hono();
 
@@ -23,7 +23,7 @@ app.post("/api/whoami", async (c) => {
   if (!isCorrectAnswer(answer)) {
     return c.json({ ok: false }, 401);
   }
-  return c.json({ ok: true, reveal: REVEAL_WHOAMI });
+  return c.json({ ok: true, reveal: REVEAL_ANSWER });
 });
 
 export default app;

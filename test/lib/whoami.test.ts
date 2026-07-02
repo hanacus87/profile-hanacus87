@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { isCorrectAnswer } from "../../src/lib/whoami";
+import { REVEAL_ANSWER, isCorrectAnswer } from "../../src/lib/whoami";
 
 describe("正体の判定", () => {
   test("入力が hibiscus のとき 正解と判定する", () => {
@@ -24,5 +24,11 @@ describe("正体の判定", () => {
 
   test("空文字は不正解と判定する", () => {
     expect(isCorrectAnswer("")).toBe(false);
+  });
+});
+
+describe("正解時の報酬", () => {
+  test("ハッシュの平文 hibiscus を whoami タグで返す", () => {
+    expect(REVEAL_ANSWER).toBe("<whoami>hibiscus</whoami>");
   });
 });
